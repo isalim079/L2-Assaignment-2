@@ -17,7 +17,7 @@ const createECommerceData = async (req: Request, res: Response) => {
   }
 };
 
-// get products data
+// get products lists
 const getProductListsFromDB = async (req: Request, res: Response) => {
   try {
     const result = await eCommerceServices.getAllProductsFromDB();
@@ -31,7 +31,23 @@ const getProductListsFromDB = async (req: Request, res: Response) => {
   }
 };
 
+// get single product
+const getSingleProductFromDB = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const result = await eCommerceServices.getSingleProductFromDB(productId);
+    res.status(200).json({
+      success: true,
+      message: 'Products fetched successfully!',
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const eCommerceControllers = {
   createECommerceData,
   getProductListsFromDB,
+  getSingleProductFromDB,
 };
