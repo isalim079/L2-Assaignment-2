@@ -25,4 +25,4 @@ const eCommerceDataSchema = new Schema<EcommerceData>({
   inventory: inventorySchema,
 });
 
-export const ECommerceDataModel = model<EcommerceData>('ECommerceDataModel', eCommerceDataSchema)
+export const ECommerceDataModel = model<EcommerceData>('productsCollection', eCommerceDataSchema)

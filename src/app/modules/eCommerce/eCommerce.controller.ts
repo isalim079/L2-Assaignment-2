@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { eCommerceServices } from './eCommerce.service';
 
+// Insert products data
 const createECommerceData = async (req: Request, res: Response) => {
   try {
     const eCommerceData = req.body;
@@ -16,6 +17,21 @@ const createECommerceData = async (req: Request, res: Response) => {
   }
 };
 
+// get products data
+const getProductListsFromDB = async (req: Request, res: Response) => {
+  try {
+    const result = await eCommerceServices.getAllProductsFromDB();
+    res.status(200).json({
+      success: true,
+      message: 'Products fetched successfully!',
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const eCommerceControllers = {
-    createECommerceData
-}
+  createECommerceData,
+  getProductListsFromDB,
+};
