@@ -20,12 +20,32 @@ const createECommerceData = async (req: Request, res: Response) => {
 // get products lists
 const getProductListsFromDB = async (req: Request, res: Response) => {
   try {
-    const result = await eCommerceServices.getAllProductsFromDB();
-    res.status(200).json({
-      success: true,
-      message: 'Products fetched successfully!',
-      data: result,
-    });
+    const { searchTerm } = req.query;
+    if (searchTerm) {
+      try {
+        const result = await eCommerceServices.searchProductIntoDB(
+          searchTerm.toString(),
+        );
+        res.status(200).json({
+          success: true,
+          message: `Products matching search term '${searchTerm}' fetched successfully!`,
+          data: result,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const result = await eCommerceServices.getAllProductsFromDB();
+        res.status(200).json({
+          success: true,
+          message: 'Products fetched successfully!',
+          data: result,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
   } catch (error) {
     console.log(error);
   }
@@ -57,7 +77,7 @@ const updateProductInfoFromDB = async (req: Request, res: Response) => {
     );
     res.status(200).json({
       success: true,
-      message: 'Product updated successfully!!',
+      message: 'Product updated successfully!',
       data: result,
     });
   } catch (error) {
@@ -83,10 +103,13 @@ const deleteProductInfoFromDB = async (req: Request, res: Response) => {
   }
 };
 
+
+
 export const eCommerceControllers = {
   createECommerceData,
   getProductListsFromDB,
   getSingleProductFromDB,
   updateProductInfoFromDB,
   deleteProductInfoFromDB,
+
 };

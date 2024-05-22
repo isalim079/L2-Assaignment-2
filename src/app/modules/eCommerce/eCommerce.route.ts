@@ -9,4 +9,5 @@ router.get('/api/products/:productId', eCommerceControllers.getSingleProductFrom
 router.put('/api/products/:productId', eCommerceControllers.updateProductInfoFromDB)
 router.delete('/api/products/:productId', eCommerceControllers.deleteProductInfoFromDB)
 
+
 export const eCommerceRoutes = router

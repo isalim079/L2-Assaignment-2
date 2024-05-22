@@ -53,10 +53,25 @@ const deleteProductInfoFromDB = async (id: string) => {
     return result
 }
 
+// search product
+const searchProductIntoDB = async(searchTerm: string) => {
+    const regex = new RegExp(searchTerm, 'i')
+    const result = await ECommerceDataModel.find({
+        $or: [
+            {name: regex},
+            {description: regex},
+            {category: regex}
+        ]
+    })
+    // console.log(result);
+    return result
+}
+
 export const eCommerceServices = {
   createECommerceDataIntoDB,
   getAllProductsFromDB,
   getSingleProductFromDB,
   updateProductInfoFromDB,
-  deleteProductInfoFromDB
+  deleteProductInfoFromDB,
+  searchProductIntoDB,
 };
