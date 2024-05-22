@@ -6,6 +6,11 @@ const createOrderData = async (req: Request, res: Response) => {
   try {
     const orderData = req.body;
     const result = await orderServices.createOrderDataIntoDB(orderData);
+
+    if ('success' in result && !result.success) {
+      return res.status(400).json(result);
+    }
+
     res.status(200).json({
       success: true,
       message: 'Order created successfully!',

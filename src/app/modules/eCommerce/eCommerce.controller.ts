@@ -103,13 +103,10 @@ const deleteProductInfoFromDB = async (req: Request, res: Response) => {
   }
 };
 
-
-
 export const eCommerceControllers = {
   createECommerceData,
   getProductListsFromDB,
   getSingleProductFromDB,
   updateProductInfoFromDB,
   deleteProductInfoFromDB,
-
 };

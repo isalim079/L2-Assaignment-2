@@ -48,24 +48,20 @@ const updateProductInfoFromDB = async (
 
 // delete product information
 const deleteProductInfoFromDB = async (id: string) => {
-    const objectId = new Types.ObjectId(id)
-    const result = await ECommerceDataModel.deleteOne(objectId)
-    return result
-}
+  const objectId = new Types.ObjectId(id);
+  const result = await ECommerceDataModel.deleteOne(objectId);
+  return result;
+};
 
 // search product
-const searchProductIntoDB = async(searchTerm: string) => {
-    const regex = new RegExp(searchTerm, 'i')
-    const result = await ECommerceDataModel.find({
-        $or: [
-            {name: regex},
-            {description: regex},
-            {category: regex}
-        ]
-    })
-    // console.log(result);
-    return result
-}
+const searchProductIntoDB = async (searchTerm: string) => {
+  const regex = new RegExp(searchTerm, 'i');
+  const result = await ECommerceDataModel.find({
+    $or: [{ name: regex }, { description: regex }, { category: regex }],
+  });
+  // console.log(result);
+  return result;
+};
 
 export const eCommerceServices = {
   createECommerceDataIntoDB,
