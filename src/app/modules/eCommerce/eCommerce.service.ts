@@ -15,14 +15,42 @@ const getAllProductsFromDB = async () => {
 };
 
 // get single product
-const getSingleProductFromDB = async(id: string) => {
-    const objectId = new Types.ObjectId(id)
-    const result = await ECommerceDataModel.findById(objectId)
-    return result
-}
+const getSingleProductFromDB = async (id: string) => {
+  const objectId = new Types.ObjectId(id);
+  const result = await ECommerceDataModel.findById(objectId);
+  return result;
+};
+
+// update product information
+const updateProductInfoFromDB = async (
+  id: string,
+  updateInfo: EcommerceData,
+) => {
+  const objectId = new Types.ObjectId(id);
+  const updatedData = {
+    $set: {
+      name: updateInfo.name,
+      description: updateInfo.description,
+      price: updateInfo.price,
+      category: updateInfo.category,
+      tags: updateInfo.tags,
+      variants: updateInfo.variants,
+      inventory: updateInfo.inventory,
+    },
+  };
+  const result = ECommerceDataModel.findOneAndUpdate(
+    { _id: objectId },
+    updatedData,
+    { new: true, runValidators: true },
+  );
+  // console.log(updateInfo);
+
+  return result;
+};
 
 export const eCommerceServices = {
   createECommerceDataIntoDB,
   getAllProductsFromDB,
-  getSingleProductFromDB
+  getSingleProductFromDB,
+  updateProductInfoFromDB,
 };
