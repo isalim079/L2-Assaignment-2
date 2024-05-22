@@ -43,14 +43,20 @@ const updateProductInfoFromDB = async (
     updatedData,
     { new: true, runValidators: true },
   );
-  // console.log(updateInfo);
-
   return result;
 };
+
+// delete product information
+const deleteProductInfoFromDB = async (id: string) => {
+    const objectId = new Types.ObjectId(id)
+    const result = await ECommerceDataModel.deleteOne(objectId)
+    return result
+}
 
 export const eCommerceServices = {
   createECommerceDataIntoDB,
   getAllProductsFromDB,
   getSingleProductFromDB,
   updateProductInfoFromDB,
+  deleteProductInfoFromDB
 };

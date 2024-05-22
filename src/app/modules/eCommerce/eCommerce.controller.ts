@@ -48,23 +48,45 @@ const getSingleProductFromDB = async (req: Request, res: Response) => {
 
 // update product information
 const updateProductInfoFromDB = async (req: Request, res: Response) => {
-    try {
-        const {productId} = req.params;
-        const updateInfo = req.body;
-        const result = await eCommerceServices.updateProductInfoFromDB(productId, updateInfo)
-        res.status(200).json({
-            success: true,
-            message: 'Product updated successfully!!',
-            data: result,
-          });
-    } catch (error) {
-        console.log(error);
+  try {
+    const { productId } = req.params;
+    const updateInfo = req.body;
+    const result = await eCommerceServices.updateProductInfoFromDB(
+      productId,
+      updateInfo,
+    );
+    res.status(200).json({
+      success: true,
+      message: 'Product updated successfully!!',
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// delete product information
+const deleteProductInfoFromDB = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const result = await eCommerceServices.deleteProductInfoFromDB(productId);
+
+    if (result.deletedCount === 1) {
+      res.status(200).json({
+        success: true,
+        message: 'Product deleted successfully!',
+        data: null,
+      });
     }
-}
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const eCommerceControllers = {
   createECommerceData,
   getProductListsFromDB,
   getSingleProductFromDB,
   updateProductInfoFromDB,
+  deleteProductInfoFromDB,
 };
