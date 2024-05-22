@@ -7,7 +7,7 @@ const createOrderDataIntoDB = async (orderData: Order) => {
   const product = await ECommerceDataModel.findById(orderData.productId);
 
   if (!product) {
-    return { success: false, message: 'Product not found' };
+    return { success: false, message: 'Order not found' };
   }
 
   if (product.inventory.quantity < orderData.quantity) {
